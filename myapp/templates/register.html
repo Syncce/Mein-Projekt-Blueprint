@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6">
+  <div class="card shadow-sm"><div class="card-body">
+    <h3 class="mb-3">Registrieren</h3>
+    <form method="post" novalidate>
+      {{ form.csrf_token }}
+      <div class="mb-3">{{ form.username.label(class_="form-label") }}{{ form.username(class_="form-control") }}
+      {% for e in form.username.errors %}<div class="invalid-feedback d-block">{{ e }}</div>{% endfor %}</div>
+      <div class="mb-3">{{ form.email.label(class_="form-label") }}{{ form.email(class_="form-control") }}
+      {% for e in form.email.errors %}<div class="invalid-feedback d-block">{{ e }}</div>{% endfor %}</div>
+      <div class="mb-3">{{ form.password.label(class_="form-label") }}{{ form.password(class_="form-control") }}
+      {% for e in form.password.errors %}<div class="invalid-feedback d-block">{{ e }}</div>{% endfor %}</div>
+      <div class="mb-3">{{ form.confirm.label(class_="form-label") }}{{ form.confirm(class_="form-control") }}
+      {% for e in form.confirm.errors %}<div class="invalid-feedback d-block">{{ e }}</div>{% endfor %}</div>
+      {{ form.submit(class_="btn btn-primary") }}
+    </form>
+  </div></div>
+</div></div>
+{% endblock %}

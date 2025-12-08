@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-3">Alle Beiträge</h2>
+<div class="row g-3">
+{% for post in posts %}
+  <div class="col-md-6">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text text-truncate-3">{{ post.body }}</p>
+        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('main.post_detail', post_id=post.id) }}">Lesen</a>
+      </div>
+      <div class="card-footer text-muted small d-flex justify-content-between">
+        <span>von {{ post.author.username }}</span>
+        <span>{{ post.created_at.strftime('%d.%m.%Y %H:%M') if post.created_at else '' }}</span>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <p>Keine Beiträge vorhanden.</p>
+{% endfor %}
+</div>
+{% endblock %}

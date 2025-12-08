@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<article class="mb-4">
+  <header class="mb-3">
+    <h1 class="mb-1">{{ post.title }}</h1>
+    <div class="text-muted small">von {{ post.author.username }} • {{ post.created_at.strftime('%d.%m.%Y %H:%M') if post.created_at else '' }}</div>
+  </header>
+  <div class="content lead" style="white-space: pre-wrap;">{{ post.body | safe }}</div>
+
+  {% if current_user.is_authenticated and current_user.id == post.author_id %}
+  <div class="mt-4">
+    <a href="{{ url_for('main.edit_post', post_id=post.id) }}" class="btn btn-warning btn-sm">Bearbeiten</a>
+    <form method="post" action="{{ url_for('main.delete_post', post_id=post.id) }}" class="d-inline"
+          onsubmit="return confirm('Möchten Sie diesen Beitrag wirklich löschen?');">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
+    </form>
+  </div>
+  {% endif %}
+</article>
+<a class="btn btn-outline-secondary" href="{{ url_for('main.posts') }}">&larr; Zurück zur Übersicht</a>
+{% endblock %}
